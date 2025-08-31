@@ -2,12 +2,15 @@
 
 // ===== Types =====
 export type Experience = {
+  slug: string;                       
   role: string;
   company: string;
-  period: string; // e.g. "2024 – Present"
+  period: string;
   summary: string;
   highlights?: string[];
   tags?: string[];
+  details?: string[];                
+  links?: { label: string; href: string }[]; 
 };
 
 export type Project = {
@@ -28,6 +31,16 @@ export type Education = {
   details?: string[]; 
 };
 
+export type Publication = {
+  slug: string;
+  title: string;
+  venue?: string;        // journal / conference
+  date?: string;         // ISO like "2024-08-16"
+  authorsShort?: string; // e.g., "A. Vishwakarma et al."
+  tags?: string[];
+  links?: { doi?: string; arxiv?: string; url?: string; slides?: string; code?: string };
+};
+
 export type Skills = Record<string, string[]>;
 
 // ===== Contact (used in Home + Contact pages) =====
@@ -42,38 +55,57 @@ export const CONTACT = {
 // ===== Experience (used by <ExperienceTimeline/>) =====
 export const experiences: Experience[] = [
   {
+    slug: "freelance-ds-ml-2025",
     role: "Independent Data Scientist / ML Engineer",
     company: "Freelance",
-    period: "Jan 2025 – Present",
+    period: "2025",
     summary:
-      "Hands-on ML/LLM work for SMBs and startups: automation, RAG, analytics dashboards.",
+      "Built LLM automations and a RAG nutrition assistant for SMB/startup clients.",
     highlights: [
-      "LLM multi-agent WhatsApp CRM; automated follow-ups and triage",
-      "RAG assistant on WHO/NHS guidance for pediatric meal plans",
+      "WhatsApp CRM multi-agent automations (~80% workload reduction)",
+      "RAG assistant on WHO/NHS content (+40% parent engagement)",
     ],
-    tags: ["Python", "LLMs", "LangChain", "FastAPI", "Postgres", "Azure"],
+    details: [
+      "Designed tool-using agents for triage, templated replies, and human handoff.",
+      "Shipped FastAPI services with auth, logging, and evaluation harnesses.",
+      "Implemented retrieval evals (coverage/groundedness) and feedback loop.",
+    ],
+    tags: ["LLMs", "Agents", "RAG", "Python", "LangChain", "FastAPI", "Postgres"],
   },
   {
+    slug: "level-e-research-2022-2023",
     role: "Research Data Scientist (ESG/FinTech)",
     company: "Level E Research",
     period: "2022 – 2023",
     summary:
-      "Designed ESG-aware signals and automated investment/risk reporting; mentored junior DS.",
-    highlights: [
-      "Integrated ESG signals into factor models",
-      "Automated reporting pipelines; reduced manual effort",
+      "Integrated ESG signals into factor models and automated reporting; mentored DS team.",
+    highlights: ["~+5% over S&P 500 baseline (backtests)", "−70% manual reporting effort"],
+    details: [
+      "Built NLP/time-series features; productionized backtests and risk reports.",
+      "Set up GitLab CI for data/ML workflows and artifact versioning.",
+      "Partnered with PMs to translate signals into portfolio impact.",
     ],
     tags: ["NLP", "Time-series", "MLOps", "GitLab CI", "Snowflake"],
   },
   {
-    role: "Researcher (Long-Lived Particle ML Analysis)",
-    company: "CERN / University of Edinburgh",
+    slug: "edinburgh-cern-2019-2022",
+    role: "Postdoctoral Research Fellow",
+    company: "University of Edinburgh / CERN (ATLAS)",
     period: "2019 – 2022",
     summary:
-      "Built GPU-optimized ML pipelines for particle-physics analyses at scale.",
+      "Prepared ATLAS for HL-LHC; simulation optimization and ML analysis for LLP searches.",
     highlights: [
-      "RNN-based pipeline for LLP analysis",
-      "CUDA/GPU training and production readiness",
+      "Improved detector geometry → ~19% CPU reduction",
+      "Collaborated with NVIDIA on GPU strategy",
+    ],
+    details: [
+      "Developed/optimized ML methods (incl. RNNs) for particle classification (~20% accuracy gain).",
+      "Organized cross-disciplinary workshops; co-supervised two PhD students.",
+      "Media outreach & expert interview on AI in physics; GPU-accelerated training pipelines.",
+      "Tools: Python, C++, ROOT, CUDA, RNNs, Athena, Git, GRID, Jupyter, HPC.",
+    ],
+    links: [
+      { label: "ACAT talk", href: "https://indico.cern.ch/event/1330797/contributions/5801194/" },
     ],
     tags: ["PyTorch", "CUDA", "HPC", "Physics"],
   },
@@ -187,4 +219,57 @@ export const education: Education[] = [
       "Foundations in statistics, numerical methods, and scientific computing",
     ],
   },
+];
+
+export const publications: Publication[] = [
+  {
+    slug: "atlas-geant4-sim-optimizations-2024",
+    title: "ATLAS Geant4 Simulation Optimizations",
+    date: "2024-08-16",
+    authorsShort: "A. Vishwakarma et al.",
+    tags: ["peer-reviewed"],
+    links: { url: "#" } // drop DOI/arXiv here when ready
+  },
+  {
+    slug: "optimizing-atlas-geant4-2023",
+    title: "Optimizing the ATLAS Geant4 detector simulation software",
+    date: "2023-03-13",
+    authorsShort: "A. Vishwakarma et al.",
+    links: { url: "#" }
+  },
+  {
+    slug: "tau-reco-run2-run3-2022",
+    title: "Tau Reconstruction in Run2 and Run3",
+    date: "2022-09-15",
+    authorsShort: "A. Vishwakarma et al.",
+    links: { url: "#" }
+  },
+  {
+    slug: "ttbar-xsec-heavy-flavour-jets-jhep-2019",
+    title:
+      "Measurements of fiducial and differential cross-sections of tt production with additional heavy-flavour jets in pp collisions at √s = 13 TeV with the ATLAS detector",
+    venue: "JHEP",
+    date: "2019-04-04",
+    authorsShort: "ATLAS Collaboration (incl. A. Vishwakarma)",
+    tags: ["peer-reviewed"],
+    links: { doi: "#", arxiv: "#" }
+  },
+  {
+    slug: "top-quark-xsec-proc-2019",
+    title: "Measurements of top quark production cross-section at ATLAS",
+    venue: "Nuclear and Particle Physics Proceedings",
+    date: "2019-02-20",
+    authorsShort: "ATLAS Collaboration (incl. A. Vishwakarma)",
+    links: { doi: "#" }
+  },
+  {
+    slug: "hh-to-ggbb-prd-2016",
+    title:
+      "Search for two Higgs bosons in final states containing two photons and two bottom quarks in proton-proton collisions at 8 TeV",
+    venue: "Physical Review D",
+    date: "2016-09-29",
+    authorsShort: "ATLAS Collaboration (incl. A. Vishwakarma)",
+    tags: ["peer-reviewed"],
+    links: { doi: "#" }
+  }
 ];

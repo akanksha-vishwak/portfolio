@@ -10,6 +10,8 @@ import { ProjectCard } from "@/components/ProjectCard";
 import { ContactInfo } from "@/components/ContactInfo";
 import { education } from "@/lib/data";
 import { EducationTimeline } from "@/components/EducationTimeline";
+import { publications } from "@/lib/data";
+import { PublicationsList } from "@/components/PublicationsList";
 
 export default function HomePage() {
   return (
@@ -114,27 +116,28 @@ export default function HomePage() {
       </section>
 
       {/* Education */}
-      <section id="education" className="container mx-auto max-w-6xl px-6 py-20">
+      <section id="education" className="bg-white/5">
+      <div className="container mx-auto max-w-6xl px-6 py-20">
         <div className="mb-10">
           <h2 className="text-2xl md:text-3xl font-semibold">Education</h2>
           <p className="text-neutral-400 mt-2">Formal training and research foundations.</p>
         </div>
         <EducationTimeline items={education} />
+        </div>
       </section>
 
       {/* Skills */}
-      <section id="skills" className="bg-white/5">
-        <div className="container mx-auto max-w-6xl px-6 py-20">
+      <section id="skills" className="container mx-auto max-w-6xl px-6 py-20">
           <div className="mb-10">
             <h2 className="text-2xl md:text-3xl font-semibold">Skills</h2>
             <p className="text-neutral-400 mt-2">Tools I use to ship reliable data products.</p>
           </div>
-          <SkillsGrid skills={skills} />
-        </div>
+          <SkillsGrid skills={skills} /> 
       </section>
 
       {/* Projects (teasers) */}
-      <section id="projects" className="container mx-auto max-w-6xl px-6 py-20">
+      <section id="projects" className="bg-white/5">
+      <div className="container mx-auto max-w-6xl px-6 py-20">
         <div className="mb-10">
           <h2 className="text-2xl md:text-3xl font-semibold">Featured Projects</h2>
           <p className="text-neutral-400 mt-2">A few favorites. See more on the Projects page.</p>
@@ -149,7 +152,21 @@ export default function HomePage() {
             View all projects →
           </Link>
         </div>
+        </div>
       </section>
+
+      {/* Selected Publications */}
+      <section id="publications" className="container mx-auto max-w-6xl px-6 py-20">
+        <div className="mb-10 flex items-end justify-between">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-semibold">Selected Publications</h2>
+            <p className="text-neutral-400 mt-2">A few highlights from my research work.</p>
+          </div>
+          <Link href="/publications" className="link-underline text-neutral-300">View all →</Link>
+        </div>
+        <PublicationsList items={publications} limit={4} />
+      </section>
+
 
       {/* Contact */}
       <section id="contact" className="bg-white/5">
