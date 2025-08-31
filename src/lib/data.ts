@@ -13,6 +13,16 @@ export type Experience = {
   links?: { label: string; href: string }[]; 
 };
 
+export type Education = {
+  degree: string;
+  institution: string;
+  period: string;    
+  location?: string;
+  details?: string[]; 
+};
+
+export type Skills = Record<string, string[]>;
+
 export type Project = {
   slug: string;
   title: string;
@@ -23,25 +33,30 @@ export type Project = {
   links?: { demo?: string; repo?: string };
 };
 
-export type Education = {
-  degree: string;
-  institution: string;
-  period: string;    
-  location?: string;
-  details?: string[]; 
-};
-
 export type Publication = {
   slug: string;
   title: string;
-  venue?: string;        // journal / conference
-  date?: string;         // ISO like "2024-08-16"
+  venue?: string;        
+  date?: string;        
   authorsShort?: string; // e.g., "A. Vishwakarma et al."
   tags?: string[];
   links?: { doi?: string; arxiv?: string; url?: string; slides?: string; code?: string };
 };
 
-export type Skills = Record<string, string[]>;
+export type BlogCategory = "tech" | "travel" | "essays";
+
+export type BlogPost = {
+  slug: string;
+  title: string;
+  category: BlogCategory;  // ← used for grouping & routes
+  date: string;            // ISO date
+  excerpt: string;
+  contentHtml: string;
+  cover?: string;          // optional /public/… image
+  tags?: string[];
+  readingMinutes?: number;
+  featured?: boolean;
+};
 
 // ===== Contact (used in Home + Contact pages) =====
 export const CONTACT = {
@@ -173,29 +188,51 @@ export const projects: Project[] = [
   },
 ];
 
-// ===== Blog (used by /blog) =====
-export const blogPosts = [
+export const blogPosts: BlogPost[] = [
   {
     slug: "data-sci-portfolio-checklist",
     title: "A Recruiter-Friendly Data Science Portfolio Checklist",
+    category: "tech",
     date: "2025-08-01",
-    tag: "Career",
-    excerpt:
-      "What hiring managers scan first, and how to optimize your portfolio for clarity and impact.",
+    excerpt: "What hiring managers scan first, and how to optimize your portfolio for clarity and impact.",
     contentHtml: `
       <p>Keep the hero lean, show outcomes, and link to live demos. Recruiters skim first, then dive.</p>
     `,
+    tags: ["career", "portfolio"],
+    readingMinutes: 4,
   },
   {
     slug: "rag-evals-practical",
     title: "Practical RAG Evaluations: From NDCG to Human-in-the-Loop",
+    category: "tech",
     date: "2025-07-15",
-    tag: "LLMs",
-    excerpt:
-      "Metrics that correlate with user trust, plus a lightweight feedback loop.",
+    excerpt: "Metrics that correlate with user trust, plus a lightweight feedback loop.",
     contentHtml: `
       <p>Beyond exact match: retrieval coverage and groundedness matter for user trust.</p>
     `,
+    tags: ["llms", "rag", "evaluation"],
+    readingMinutes: 6,
+  },
+  // Travel example:
+  {
+    slug: "hiking-dolomites-3days",
+    title: "3 Days in the Dolomites — What I’d Repeat",
+    category: "travel",
+    date: "2024-06-10",
+    excerpt: "The loop, the views, and the one cable car I’d skip.",
+    contentHtml: "<p>…</p>",
+    tags: ["italy", "hiking"],
+  },
+
+  // Add Essays:
+  {
+    slug: "on-learning-in-public",
+    title: "On Learning in Public",
+    category: "essays",
+    date: "2024-02-18",
+    excerpt: "Showing your drafts makes the work—and you—better.",
+    contentHtml: "<p>…</p>",
+    tags: ["writing", "meta"],
   },
 ];
 
